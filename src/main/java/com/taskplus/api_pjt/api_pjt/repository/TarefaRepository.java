@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface TarefaRepository extends JpaRepository<TarefaModel, Integer> {
 
-    Optional<TarefaModel> findByCdTarefa (Integer cdTarefa);
+    Optional<TarefaModel> findByCdTarefa(Integer cdTarefa);
     
 }

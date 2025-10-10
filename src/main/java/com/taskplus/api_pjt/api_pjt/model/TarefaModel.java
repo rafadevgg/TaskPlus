@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 
-
 public class TarefaModel {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +37,18 @@ public class TarefaModel {
 
     @CreationTimestamp
     private LocalDateTime dlTarefa;
+
+    @ManyToOne
+    @JoinColumn(name = "cd_categoria")
+    private CategoriaModel categoria;
+
+    public CategoriaModel getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(CategoriaModel categoria) {
+        this.categoria = categoria;
+    }
 
 
 }

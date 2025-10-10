@@ -28,4 +28,11 @@ public class TarefaController {
         var tarefa = tarefaService.adiarTarefa(cdTarefa);
         return ResponseEntity.status(HttpStatus.OK).body(tarefa);
     }
+
+    @PutMapping("/{cdTarefa}/categoria/{cdCategoria}")
+    public ResponseEntity<TarefaModel> atribuir(@PathVariable Integer cdTarefa, Integer cdCategoria) {
+
+        var tarefaAtualizada = tarefaService.atribuirCategoria(cdTarefa, cdCategoria);
+        return ResponseEntity.status(HttpStatus.OK).body(tarefaAtualizada);
+    }
 }
