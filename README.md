@@ -61,4 +61,3 @@ A API estará disponível em `http://localhost:8080`
 - `GET /api/categorias/{id}` - Buscar por ID
 - `PUT /api/categorias/{id}` - Atualizar
 - `DELETE /api/categorias/{id}` - Deletar
-```
