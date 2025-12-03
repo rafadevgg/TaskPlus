@@ -1,4 +1,4 @@
-TaskPlus API
+# TaskPlus API
 
 API REST para gerenciamento de tarefas, desenvolvida com Spring Boot e PostgreSQL.
 
