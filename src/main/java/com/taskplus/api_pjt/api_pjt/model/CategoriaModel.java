@@ -6,15 +6,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name = "Categorias")
+@Entity
 @Table(name = "Categorias")
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 
 public class CategoriaModel {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer cdCategoria;
 
     private String nmCategoria;
+
 }
