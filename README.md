@@ -62,7 +62,3 @@ A API estará disponível em `http://localhost:8080`
 - `PUT /api/categorias/{id}` - Atualizar
 - `DELETE /api/categorias/{id}` - Deletar
 ```
-
-## 📄 Licença
-
-Este projeto está sob a licença MIT.
