@@ -1,6 +1,6 @@
 package com.taskplus.api_pjt.api_pjt.model;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.taskplus.api_pjt.api_pjt.model.enums.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -20,7 +20,8 @@ import java.time.LocalDateTime;
 
 public class TarefaModel {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer cdTarefa;
 
     private String nmTarefa;
@@ -35,11 +36,14 @@ public class TarefaModel {
     @CreationTimestamp
     private LocalDateTime dcTarefa;
 
-    @CreationTimestamp
     private LocalDateTime dlTarefa;
 
     @ManyToOne
     @JoinColumn(name = "cd_categoria")
     private CategoriaModel categoria;
 
+    @ManyToOne
+    @JoinColumn(name = "cd_usuario", nullable = false)
+    @JsonIgnore
+    private UsuarioModel usuario;
 }
