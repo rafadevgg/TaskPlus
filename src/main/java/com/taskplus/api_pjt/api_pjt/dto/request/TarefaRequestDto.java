@@ -9,7 +9,6 @@ public record TarefaRequestDto(
         String nmTarefa,
 
         @NotNull(message = "A data limite é obrigatória!")
-        @Future(message = "A data limite deve ser futura!")
         LocalDateTime dlTarefa,
 
         Integer cdCategoria
