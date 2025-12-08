@@ -37,12 +37,13 @@ public class JwtService {
 
     public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
         long currentTimeMillis = System.currentTimeMillis();
+        long expirationTime = currentTimeMillis + expiration;
 
         return Jwts.builder()
                 .claims(extraClaims)
                 .subject(userDetails.getUsername())
                 .issuedAt(new Date(currentTimeMillis))
-                .expiration(new Date(currentTimeMillis + expiration))
+                .expiration(new Date(expirationTime))
                 .signWith(getSignInKey())
                 .compact();
     }
@@ -50,9 +51,15 @@ public class JwtService {
     public boolean isTokenValid(String token, UserDetails userDetails) {
         try {
             final String username = extractUsername(token);
-            return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+            boolean isUsernameValid = username.equals(userDetails.getUsername());
+            boolean isTokenNotExpired = !isTokenExpired(token);
+
+            System.out.println("Token validation - Username match: " + isUsernameValid + ", Not expired: " + isTokenNotExpired);
+
+            return isUsernameValid && isTokenNotExpired;
         } catch (Exception e) {
             System.err.println("Token validation error: " + e.getMessage());
+            e.printStackTrace();
             return false;
         }
     }
@@ -60,7 +67,12 @@ public class JwtService {
     private boolean isTokenExpired(String token) {
         try {
             Date expiration = extractExpiration(token);
-            return expiration.before(new Date());
+            Date now = new Date();
+            boolean expired = expiration.before(now);
+
+            System.out.println("Token expiration check - Expires at: " + expiration + ", Now: " + now + ", Expired: " + expired);
+
+            return expired;
         } catch (Exception e) {
             System.err.println("Token expiration check error: " + e.getMessage());
             return true;
@@ -72,11 +84,16 @@ public class JwtService {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parser()
-                .verifyWith(getSignInKey())
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
+        try {
+            return Jwts.parser()
+                    .verifyWith(getSignInKey())
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
+        } catch (Exception e) {
+            System.err.println("Error parsing token: " + e.getMessage());
+            throw e;
+        }
     }
 
     private SecretKey getSignInKey() {
